@@ -27,6 +27,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [location, setLocation] = useState("");
+  const [humidity, setHumidity] = useState(null);
 
   const fetchWeather = async (lat, lon, name = "") => {
     setLoading(true);
@@ -34,11 +35,11 @@ function App() {
     setCityName(name);
     try {
       const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=auto`
-      );
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=relativehumidity_2m&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=auto`      );
       const data = await res.json();
       setWeather(data.current_weather);
       setForecast(data.daily);
+      setHumidity(data.hourly.relativehumidity_2m[0]);
     } catch {
       setError("No se pudo obtener el clima. Intenta de nuevo.");
     } finally {
@@ -112,6 +113,7 @@ function App() {
             <p>🌡 Temperatura: <strong>{weather.temperature}°C</strong></p>
             <p>💨 Viento: <strong>{weather.windspeed} km/h</strong></p>
             <p>🕐 Hora: <strong>{weather.time.replace("T", " ")}</strong></p>
+            <p>💧 Humedad: <strong>{humidity}%</strong></p>
           </div>
 
           {forecast && (
