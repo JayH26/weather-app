@@ -26,7 +26,7 @@ const WMO_CODES = {
   95: { label: "Tormenta", icon: "⛈" },
   96: { label: "Tormenta con granizo", icon: "⛈" },
   99: { label: "Tormenta fuerte con granizo", icon: "⛈" },
-};S
+};
 
 function getWeatherInfo(code) {
   return WMO_CODES[code] || { label: "Desconocido", icon: "🌡" };
