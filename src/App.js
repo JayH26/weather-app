@@ -9,12 +9,24 @@ const WMO_CODES = {
   45: { label: "Neblina", icon: "🌫" },
   48: { label: "Neblina con escarcha", icon: "🌫" },
   51: { label: "Llovizna ligera", icon: "🌦" },
+  53: { label: "Llovizna moderada", icon: "🌦" },
+  55: { label: "Llovizna intensa", icon: "🌦" },
   61: { label: "Lluvia ligera", icon: "🌧" },
   63: { label: "Lluvia moderada", icon: "🌧" },
   65: { label: "Lluvia intensa", icon: "🌧" },
+  71: { label: "Nieve ligera", icon: "🌨" },
+  73: { label: "Nieve moderada", icon: "🌨" },
+  75: { label: "Nieve intensa", icon: "❄️" },
+  77: { label: "Granizo", icon: "🌨" },
   80: { label: "Chubascos", icon: "🌦" },
+  81: { label: "Chubascos moderados", icon: "🌦" },
+  82: { label: "Chubascos intensos", icon: "🌦" },
+  85: { label: "Nieve ligera", icon: "🌨" },
+  86: { label: "Nieve intensa", icon: "❄️" },
   95: { label: "Tormenta", icon: "⛈" },
-};
+  96: { label: "Tormenta con granizo", icon: "⛈" },
+  99: { label: "Tormenta fuerte con granizo", icon: "⛈" },
+};S
 
 function getWeatherInfo(code) {
   return WMO_CODES[code] || { label: "Desconocido", icon: "🌡" };
@@ -112,7 +124,7 @@ function App() {
             <p className="condition">{getWeatherInfo(weather.weathercode).label}</p>
             <p>🌡 Temperatura: <strong>{weather.temperature}°C</strong></p>
             <p>💨 Viento: <strong>{weather.windspeed} km/h</strong></p>
-            <p>🕐 Hora: <strong>{weather.time.replace("T", " ")}</strong></p>
+            <p>🕐 Hora: <strong>{new Date(weather.time).toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" })}</strong></p>
             <p>💧 Humedad: <strong>{humidity}%</strong></p>
           </div>
 
